@@ -1,0 +1,53 @@
+{
+  "name": "@good-idea/sanity-plugin-shopify-selector",
+  "version": "0.0.1",
+  "description": "Shopify Collection & Item selector for Sanity.io",
+  "main": "index.js",
+  "repository": "git@github.com:good-idea/sanity-plugin-shopify-selector",
+  "author": "Joseph Thomas | Good Idea Studio",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ramda": "^0.25.0",
+    "styled-components": "^3.4.5"
+  },
+  "peerDependencies": {
+    "react": "^16.x",
+    "react-dom": "^16.x"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-export-default-from": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.1",
+    "babel-plugin-flow-react-proptypes": "^24.1.1",
+    "babel-plugin-graphql-tag": "^1.6.0",
+    "babel-plugin-import-graphql": "^2.6.2",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-ramda": "^1.6.3",
+    "babel-plugin-styled-components": "^1.6.0",
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-import-resolver-alias": "^1.1.1",
+    "eslint-import-resolver-babel-module": "^4.0.0",
+    "eslint-import-resolver-webpack": "^0.10.1",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "flow-bin": "^0.80.0",
+    "prettier": "^1.14.2",
+    "semantic-release": "^15.9.15"
+  }
+}
