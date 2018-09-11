@@ -1,5 +1,5 @@
 {
-  "name": "@good-idea/sanity-plugin-shopify-selector",
+  "name": "sanity-plugin-shopify-selector",
   "version": "0.0.0-development",
   "description": "Shopify Collection & Item selector for Sanity.io",
   "main": "index.js",
