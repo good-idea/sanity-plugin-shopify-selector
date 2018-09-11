@@ -1,6 +1,6 @@
 {
   "name": "@good-idea/sanity-plugin-shopify-selector",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Shopify Collection & Item selector for Sanity.io",
   "main": "index.js",
   "repository": "git@github.com:good-idea/sanity-plugin-shopify-selector",
@@ -48,6 +48,11 @@
     "eslint-plugin-react": "^7.11.1",
     "flow-bin": "^0.80.0",
     "prettier": "^1.14.2",
-    "semantic-release": "^15.9.15"
+    "semantic-release": "^15.9.15",
+    "travis-deploy-once": "^5.0.7"
+  },
+  "scripts": {
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once"
   }
 }
