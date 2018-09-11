@@ -7,6 +7,11 @@
   "author": "Joseph Thomas | Good Idea Studio",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once",
+    "test": "jest"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "ramda": "^0.25.0",
@@ -31,9 +36,6 @@
     "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.1",
     "babel-plugin-flow-react-proptypes": "^24.1.1",
-    "babel-plugin-graphql-tag": "^1.6.0",
-    "babel-plugin-import-graphql": "^2.6.2",
-    "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-ramda": "^1.6.3",
     "babel-plugin-styled-components": "^1.6.0",
     "eslint": "^5.5.0",
@@ -47,12 +49,14 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
     "flow-bin": "^0.80.0",
+    "jest": "^23.6.0",
+    "jest-dom": "^1.12.0",
+    "jest-styled-components": "^6.2.0",
     "prettier": "^1.14.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-testing-library": "^5.0.1",
     "semantic-release": "^15.9.15",
     "travis-deploy-once": "^5.0.7"
-  },
-  "scripts": {
-    "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once"
   }
 }
