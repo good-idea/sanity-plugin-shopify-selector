@@ -7,7 +7,7 @@ import { render } from 'react-testing-library'
 describe('Component Component', () => {
 	it.only('Mounts Correctly', () => {
 	/* Arrange */
-		const { container } = render(<div />)
+		const { container } = render(<span />)
 	/* Act */
 	
 	/* Assert */

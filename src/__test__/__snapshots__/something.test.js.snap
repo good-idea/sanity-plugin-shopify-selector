@@ -2,6 +2,6 @@
 
 exports[`Component Component Mounts Correctly 1`] = `
 <div>
-  <div />
+  <span />
 </div>
 `;
