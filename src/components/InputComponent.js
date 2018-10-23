@@ -3,9 +3,10 @@ import React from 'react'
 import PatchEvent, { set, unset } from 'part:@sanity/form-builder/patch-event'
 import SelectedItem from './SelectedItem'
 import ShopifySelector from './ShopifySelector'
-import Overlay from '../../Components/Overlay'
+import Overlay from './Overlay'
 
-const createPatchFrom = (value) => PatchEvent.from(value === '' ? unset() : set(value))
+const createPatchFrom = value =>
+	PatchEvent.from(value === '' ? unset() : set(value))
 
 /**
  * Shopify
@@ -55,20 +56,21 @@ class Shopify extends React.Component<Props, State> {
 				open: false,
 			},
 			() => {
-				// Encode the admin ID with base64 so we can use it on the frontend
-				const base64id = btoa(id)
-				this.setValue(btoa(base64id))
+				this.setValue(id)
 			},
 		)
 	}
 
 	setValue = (id: string) => {
-		console.log(id)
-		this.props.onChange(createPatchFrom(atob(id)))
+		this.props.onChange(createPatchFrom(id))
 	}
 
 	clearValue = () => {
 		this.props.onChange(createPatchFrom(''))
+	}
+
+	handleChange = e => {
+		this.setValue(e.target.value)
 	}
 
 	componentDidCatch(e) {
@@ -90,18 +92,29 @@ class Shopify extends React.Component<Props, State> {
 		}
 		return (
 			<div>
-				<SelectedItem value={value || ''} showSelector={this.showSelector} />
-				{value !== '' && (
-					<button type="button" onClick={this.clearValue}>
-						clear
+				{!value || value === '' ? (
+					<button type="button" onClick={this.showSelector}>
+						Select an Item
 					</button>
+				) : (
+					<React.Fragment>
+						<SelectedItem value={value} />
+						<button type="button" onClick={this.clearValue}>
+							clear
+						</button>
+					</React.Fragment>
 				)}
-				<input ref={this.inputRef} value={value} />
 				{open && (
 					<Overlay open={open} handleClose={this.closeSelector}>
 						<ShopifySelector selectProduct={this.handleSelectProduct} />
 					</Overlay>
 				)}
+				<input
+					ref={this.inputRef}
+					type="hidden"
+					value={value}
+					onChange={this.handleChange}
+				/>
 			</div>
 		)
 	}

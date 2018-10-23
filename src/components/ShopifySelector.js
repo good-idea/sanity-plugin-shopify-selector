@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import Fetcher from '../../Components/Fetcher'
+import Fetcher from './Fetcher'
 
 /**
  * ShopifySelector
@@ -26,19 +26,19 @@ type Props = BaseProps & {
 }
 
 const ShopifySelector = ({ data, selectProduct }: Props) => {
-	const handleClick = (id) => () => selectProduct(id)
+	const handleClick = id => () => selectProduct(id)
 	const { products, collections } = data.shop
 	return (
 		<React.Fragment>
 			<h2>Pick it</h2>
 			<h3>Collections</h3>
-			{collections.map((c) => (
+			{collections.map(c => (
 				<button key={c.id} type="button" onClick={handleClick(c.id)}>
 					{c.title}
 				</button>
 			))}
 			<h3>Products</h3>
-			{products.map((p) => (
+			{products.map(p => (
 				<button key={p.id} type="button" onClick={handleClick(p.id)}>
 					{p.title}
 				</button>
@@ -47,10 +47,13 @@ const ShopifySelector = ({ data, selectProduct }: Props) => {
 	)
 }
 
+/**
+ * With Fetched Data
+ */
 const productsQuery = /* GraphQL */ `
 	{
 		shop {
-			collections(first: 50) {
+			collections(first: 10) {
 				edges {
 					node {
 						id
@@ -64,13 +67,13 @@ const productsQuery = /* GraphQL */ `
 					}
 				}
 			}
-			products(first: 10) {
+			products(first: 20) {
 				edges {
 					node {
 						id
 						handle
 						title
-						images(first: 50) {
+						images(first: 1) {
 							edges {
 								node {
 									altText
@@ -86,5 +89,7 @@ const productsQuery = /* GraphQL */ `
 `
 
 export default (props: BaseProps) => (
-	<Fetcher query={productsQuery}>{({ data }) => <ShopifySelector data={data} {...props} />}</Fetcher>
+	<Fetcher query={productsQuery}>
+		{({ data }) => <ShopifySelector data={data} {...props} />}
+	</Fetcher>
 )

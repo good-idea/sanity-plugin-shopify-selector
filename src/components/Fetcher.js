@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import axios from 'axios'
-import { unwindEdges } from './utils'
+import { unwindEdges } from '../utils'
 
 /**
  * Fetcher
@@ -15,6 +15,7 @@ type Props = {
 type State = {
 	fetching: boolean,
 	errored: boolean,
+	networkError: boolean,
 	data: any,
 }
 
@@ -25,26 +26,30 @@ class Fetcher extends React.Component<Props, State> {
 		data: {},
 	}
 
-	componentDidMount = async () => {
+	componentDidMount = () => {
+		this.loadQuery()
+	}
+
+	loadQuery = async () => {
 		const { query } = this.props
-		// headers.append('Authorization', `Basic ${authString}`)
 		try {
 			const response = await axios.request({
 				url: 'http://localhost:3000/graphql',
 				method: 'POST',
 				data: { query },
 			})
-			const { data } = response
+			const data = unwindEdges(response.data)
+
 			this.setState({
+				data,
+				errored: false,
 				fetching: false,
-				data: unwindEdges(data),
 			})
 		} catch (e) {
 			this.setState({
-				errored: true,
 				fetching: false,
+				errored: true,
 			})
-			console.warn(e)
 		}
 	}
 
