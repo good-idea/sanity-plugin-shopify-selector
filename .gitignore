@@ -1,5 +1,8 @@
 .DS_Store
 lib
 node_modules
+flow-typed
+
+!**/.gitkeep
 
 .vscode

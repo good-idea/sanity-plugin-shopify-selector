@@ -7,8 +7,15 @@
 	"author": "Joseph Thomas <joseph@good-idea.studio>",
 	"license": "MIT",
 	"private": true,
+	"scripts": {
+		"flow:doctor": "flow-mono align-versions && flow-mono install-types && flow-mono create-symlinks ./sanity-plugin/.flowconfig && flow-mono create-symlinks ./proxy-server/.flowconfig"
+	},
 	"workspaces": [
-		"sanity-plugin-shopify-selector",
-		"sanity-shopify-proxy-server"
-	]
+		"proxy-server",
+		"sanity-plugin"
+	],
+	"devDependencies": {
+		"flow-mono-cli": "^1.4.2",
+		"flow-typed": "^2.5.1"
+	}
 }

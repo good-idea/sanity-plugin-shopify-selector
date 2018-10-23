@@ -15,7 +15,7 @@ module.system.node.resolve_dirname=../node_modules
 module.name_mapper='^[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> 'RelativeImageStub'
 
 ; Properly resolve & type .graphql files
-module.name_mapper.extension='graphql' -> '<PROJECT_ROOT>/config/flowGraphqlShim'
+; module.name_mapper.extension='graphql' -> '<PROJECT_ROOT>/config/flowGraphqlShim'
 
 ; Mirror the babel & webpack aliases
 
@@ -34,7 +34,5 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [libs]
 ./flow-typed/
-
-[ignore]
 
 [include]
