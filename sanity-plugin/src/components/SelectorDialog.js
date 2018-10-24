@@ -1,6 +1,8 @@
 // @flow
 import React from 'react'
 import Fetcher from './Fetcher'
+import { CardButton } from './Card'
+import { Grid } from './Layout'
 
 /**
  * ShopifySelector
@@ -30,19 +32,28 @@ const ShopifySelector = ({ data, selectProduct }: Props) => {
 	const { products, collections } = data.shop
 	return (
 		<React.Fragment>
-			<h2>Pick it</h2>
 			<h3>Collections</h3>
-			{collections.map(c => (
-				<button key={c.id} type="button" onClick={handleClick(c.id)}>
-					{c.title}
-				</button>
-			))}
+			<Grid noStretch columns={3}>
+				{collections.map(c => (
+					<CardButton
+						key={c.id}
+						type="button"
+						onClick={handleClick(c.id)}
+						item={c}
+					/>
+				))}
+			</Grid>
 			<h3>Products</h3>
-			{products.map(p => (
-				<button key={p.id} type="button" onClick={handleClick(p.id)}>
-					{p.title}
-				</button>
-			))}
+			<Grid noStretch columns={3}>
+				{products.map(p => (
+					<CardButton
+						key={p.id}
+						type="button"
+						onClick={handleClick(p.id)}
+						item={p}
+					/>
+				))}
+			</Grid>
 		</React.Fragment>
 	)
 }
@@ -53,7 +64,7 @@ const ShopifySelector = ({ data, selectProduct }: Props) => {
 const productsQuery = /* GraphQL */ `
 	{
 		shop {
-			collections(first: 10) {
+			collections(first: 100) {
 				edges {
 					node {
 						id
@@ -61,23 +72,28 @@ const productsQuery = /* GraphQL */ `
 						title
 						description
 						image {
+							id
 							altText
 							originalSrc
+							transformedSrc(maxWidth: 100)
 						}
 					}
 				}
 			}
-			products(first: 20) {
+			products(first: 200) {
 				edges {
 					node {
 						id
 						handle
 						title
+						description
 						images(first: 1) {
 							edges {
 								node {
+									id
 									altText
 									originalSrc
+									transformedSrc(maxWidth: 100)
 								}
 							}
 						}

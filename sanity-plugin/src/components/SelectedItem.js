@@ -1,16 +1,16 @@
 // @flow
 import React from 'react'
 import Fetcher from './Fetcher'
+import Card from './Card'
+import type { Product, Collection } from '../types'
 
 /**
  * SelectedItem
  */
 
-type Props = {
-	value: string,
-}
+type Props = Product | Collection
 
-const SelectedItem = ({ value }: Props) => <h1>current value: {value}</h1>
+const SelectedItem = ({ item }: Props) => <Card item={item} />
 
 /**
  * With Fetched Data
@@ -22,9 +22,12 @@ const itemQuery = (id: string) => /* GraphQL */ `
 		...on Collection {
 			id
 			title
+			description
 			image {
+				id
 				altText
 				originalSrc
+				transformedSrc(maxWidth: 100)
 			}
 			__typename
 		}
@@ -32,11 +35,14 @@ const itemQuery = (id: string) => /* GraphQL */ `
 		...on Product {
 			id
 			title
+			description
 			images(first: 1) {
 				edges {
 					node {
+						id
 						altText
 						originalSrc
+						transformedSrc(maxWidth: 100)
 					}
 				}
 			}
@@ -48,6 +54,6 @@ const itemQuery = (id: string) => /* GraphQL */ `
 
 export default (props: BaseProps) => (
 	<Fetcher query={itemQuery(props.value)}>
-		{({ data }) => <SelectedItem item={data.node} {...props} />}
+		{({ data }) => <SelectedItem item={data.node} />}
 	</Fetcher>
 )

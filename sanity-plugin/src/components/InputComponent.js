@@ -1,12 +1,21 @@
 // @flow
 import React from 'react'
+import styled from 'styled-components'
 import PatchEvent, { set, unset } from 'part:@sanity/form-builder/patch-event'
+import { FaTrashAlt } from 'react-icons/fa'
 import SelectedItem from './SelectedItem'
-import ShopifySelector from './ShopifySelector'
+import SelectorDialog from './SelectorDialog'
+import { Button } from './Generic'
 import Overlay from './Overlay'
 
 const createPatchFrom = value =>
 	PatchEvent.from(value === '' ? unset() : set(value))
+
+const SelectedWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`
 
 /**
  * Shopify
@@ -15,7 +24,7 @@ const createPatchFrom = value =>
 type Props = {
 	type: {
 		title: string,
-		options: Array<'product' | 'collection'>,
+		// options: Array<'product' | 'collection'>,
 	},
 	value?: string,
 	onChange: (value: string) => void,
@@ -93,20 +102,20 @@ class Shopify extends React.Component<Props, State> {
 		return (
 			<div>
 				{!value || value === '' ? (
-					<button type="button" onClick={this.showSelector}>
+					<Button type="button" onClick={this.showSelector}>
 						Select an Item
-					</button>
+					</Button>
 				) : (
-					<React.Fragment>
+					<SelectedWrapper>
 						<SelectedItem value={value} />
-						<button type="button" onClick={this.clearValue}>
-							clear
-						</button>
-					</React.Fragment>
+						<Button type="button" onClick={this.clearValue}>
+							<FaTrashAlt />
+						</Button>
+					</SelectedWrapper>
 				)}
 				{open && (
 					<Overlay open={open} handleClose={this.closeSelector}>
-						<ShopifySelector selectProduct={this.handleSelectProduct} />
+						<SelectorDialog selectProduct={this.handleSelectProduct} />
 					</Overlay>
 				)}
 				<input

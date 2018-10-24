@@ -34,11 +34,15 @@ class Fetcher extends React.Component<Props, State> {
 		const { query } = this.props
 		try {
 			const response = await axios.request({
-				url: 'http://localhost:3000/graphql',
+				url: 'https://kame-case.myshopify.com/api/graphql',
 				method: 'POST',
 				data: { query },
+				headers: {
+					'X-Shopify-Storefront-Access-Token':
+						'29f169ddd673015f96eb6865593e9369',
+				},
 			})
-			const data = unwindEdges(response.data)
+			const { data } = unwindEdges(response.data)
 
 			this.setState({
 				data,
@@ -56,7 +60,7 @@ class Fetcher extends React.Component<Props, State> {
 	render() {
 		const { fetching, errored, data } = this.state
 		const { children } = this.props
-		if (fetching) return <h2>Loading...</h2>
+		if (fetching) return <p>Loading...</p>
 		if (errored) return <h3>Sorry, an error occurred. Check your console.</h3>
 		return children({ data })
 	}
