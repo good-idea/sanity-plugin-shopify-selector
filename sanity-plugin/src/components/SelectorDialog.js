@@ -28,7 +28,7 @@ type Props = BaseProps & {
 }
 
 const ShopifySelector = ({ data, selectProduct }: Props) => {
-	const handleClick = id => () => selectProduct(id)
+	const handleClick = item => () => selectProduct(item)
 	const { products, collections } = data.shop
 	return (
 		<React.Fragment>
@@ -38,7 +38,7 @@ const ShopifySelector = ({ data, selectProduct }: Props) => {
 					<CardButton
 						key={c.id}
 						type="button"
-						onClick={handleClick(c.id)}
+						onClick={handleClick(c)}
 						item={c}
 					/>
 				))}
@@ -49,7 +49,7 @@ const ShopifySelector = ({ data, selectProduct }: Props) => {
 					<CardButton
 						key={p.id}
 						type="button"
-						onClick={handleClick(p.id)}
+						onClick={handleClick(p)}
 						item={p}
 					/>
 				))}
@@ -71,6 +71,7 @@ const productsQuery = /* GraphQL */ `
 						handle
 						title
 						description
+						itemType: __typename
 						image {
 							id
 							altText
@@ -87,6 +88,7 @@ const productsQuery = /* GraphQL */ `
 						handle
 						title
 						description
+						itemType: __typename
 						images(first: 1) {
 							edges {
 								node {

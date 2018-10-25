@@ -37,6 +37,12 @@ const noWrap = css`
 	text-overflow: ellipsis;
 `
 
+const TextWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+`
+
 const Title = styled.p`
 	${noWrap};
 	margin: 0;
@@ -45,28 +51,33 @@ const Title = styled.p`
 const Subtitle = styled.h5`
 	font-weight: normal;
 	color: gray;
+	margin: 0;
 	${noWrap};
 `
 
 type Props = {
 	item: Product | Collection,
-	as?: string,
 }
 
 const CardInner = ({ item }: Props) => {
-	const { title, subtitle, __typename, image, images } = item
+	const { title, itemType, image, images } = item
+	console.log(item)
+	// return null
 	const sourceImage =
-		__typename === 'collection'
+		itemType === 'collection'
 			? image
 			: images && images.length
 				? images[0]
 				: undefined
 	const src = sourceImage ? sourceImage.transformedSrc : undefined
+	const subtitle = itemType
 	return (
 		<React.Fragment>
 			<CardImage src={src} />
-			<Title>{title}</Title>
-			{subtitle ? <Subtitle>{subtitle}</Subtitle> : null}
+			<TextWrapper>
+				<Title>{title}</Title>
+				{subtitle ? <Subtitle>{subtitle}</Subtitle> : null}
+			</TextWrapper>
 		</React.Fragment>
 	)
 }

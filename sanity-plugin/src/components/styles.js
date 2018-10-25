@@ -11,4 +11,5 @@ export const baseCardStyles = css`
 	border: 1px solid lightGray;
 	border-radius: 3px;
 	box-sizing: border-box;
+	background-color: white;
 `

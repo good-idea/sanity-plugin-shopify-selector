@@ -29,7 +29,7 @@ const itemQuery = (id: string) => /* GraphQL */ `
 				originalSrc
 				transformedSrc(maxWidth: 100)
 			}
-			__typename
+			itemType: __typename
 		}
 
 		...on Product {
@@ -46,14 +46,16 @@ const itemQuery = (id: string) => /* GraphQL */ `
 					}
 				}
 			}
-			__typename
+			itemType: __typename
 		}
 	}
 }
 `
 
-export default (props: BaseProps) => (
-	<Fetcher query={itemQuery(props.value)}>
-		{({ data }) => <SelectedItem item={data.node} />}
-	</Fetcher>
-)
+export default (props: BaseProps) => {
+	return (
+		<Fetcher query={itemQuery(props.value.id)}>
+			{({ data }) => <SelectedItem item={data.node} />}
+		</Fetcher>
+	)
+}

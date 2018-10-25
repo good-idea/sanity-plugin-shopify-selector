@@ -12,7 +12,7 @@ export type Product = {
 	title: string,
 	description: string,
 	images: Array<Image>,
-	__typename: string,
+	type: 'Product',
 }
 
 export type Collection = {
@@ -20,5 +20,5 @@ export type Collection = {
 	title: string,
 	description: string,
 	image: Image,
-	__typename: string,
+	type: 'Collection',
 }
