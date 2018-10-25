@@ -41,6 +41,7 @@ const TextWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	text-align: left;
 `
 
 const Title = styled.p`
@@ -61,14 +62,13 @@ type Props = {
 
 const CardInner = ({ item }: Props) => {
 	const { title, itemType, image, images } = item
-	console.log(item)
-	// return null
 	const sourceImage =
-		itemType === 'collection'
+		itemType.toLowerCase() === 'collection'
 			? image
 			: images && images.length
 				? images[0]
 				: undefined
+	console.log(sourceImage, itemType, item)
 	const src = sourceImage ? sourceImage.transformedSrc : undefined
 	const subtitle = itemType
 	return (

@@ -7,8 +7,8 @@ export default {
 	type: 'object',
 	fields: [
 		{
-			name: 'id',
-			title: 'Item',
+			name: 'itemId',
+			title: 'Item ID',
 			type: 'string',
 		},
 		{

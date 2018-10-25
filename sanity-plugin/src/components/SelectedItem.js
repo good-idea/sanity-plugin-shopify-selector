@@ -20,7 +20,7 @@ const itemQuery = (id: string) => /* GraphQL */ `
 {
 	node(id: "${id}") {
 		...on Collection {
-			id
+			itemId: id
 			title
 			description
 			image {
@@ -33,7 +33,7 @@ const itemQuery = (id: string) => /* GraphQL */ `
 		}
 
 		...on Product {
-			id
+			itemId: id
 			title
 			description
 			images(first: 1) {
@@ -53,8 +53,9 @@ const itemQuery = (id: string) => /* GraphQL */ `
 `
 
 export default (props: BaseProps) => {
+	console.log(props)
 	return (
-		<Fetcher query={itemQuery(props.value.id)}>
+		<Fetcher query={itemQuery(props.value.itemId)}>
 			{({ data }) => <SelectedItem item={data.node} />}
 		</Fetcher>
 	)

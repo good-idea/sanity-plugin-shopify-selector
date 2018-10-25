@@ -42,6 +42,11 @@ type State = {
 	caughtError: false,
 }
 
+const defaultOptions = {
+	collections: true,
+	products: true,
+}
+
 class ShopifyInput extends React.Component<Props, State> {
 	static defaultProps = {
 		value: '',
@@ -78,13 +83,13 @@ class ShopifyInput extends React.Component<Props, State> {
 	}
 
 	setValue = item => {
-		const { image, images, id, title, description, handle, itemType } = item
+		const { image, images, itemId, title, description, handle, itemType } = item
 		const sourceImage = images && images.length ? images[0] : image
 		const previewImage = sourceImage.transformedSrc
 		this.props.onChange(
 			PatchEvent.from(
 				setIfMissing({ _type: 'shopifyItem' }),
-				id ? set(id, ['id']) : unset(['id']),
+				itemId ? set(itemId, ['itemId']) : unset(['itemId']),
 				title ? set(title, ['title']) : unset(['title']),
 				description
 					? set(description, ['description'])
@@ -118,8 +123,13 @@ class ShopifyInput extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { value } = this.props
+		const { value, type } = this.props
 		const { open, caughtError } = this.state
+		const suppliedOptions = type.options || {}
+		const options = {
+			...defaultOptions,
+			...suppliedOptions,
+		}
 		if (caughtError) {
 			return <p>Sorry, i broke it</p>
 		}
@@ -139,7 +149,10 @@ class ShopifyInput extends React.Component<Props, State> {
 				)}
 				{open && (
 					<Overlay open={open} handleClose={this.closeSelector}>
-						<SelectorDialog selectProduct={this.handleSelectProduct} />
+						<SelectorDialog
+							options={options}
+							selectProduct={this.handleSelectProduct}
+						/>
 					</Overlay>
 				)}
 				<input
