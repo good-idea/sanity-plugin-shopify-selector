@@ -29,10 +29,19 @@ const createRemoteExecutableSchema = async () => {
 const buildSchema = async () => {
 	const remoteSchema = await createRemoteExecutableSchema()
 	// merge the schema along with custom resolvers
-	return mergeSchemas({
+	const merged = mergeSchemas({
 		schemas: [remoteSchema, typeDefs],
 		resolvers,
 	})
+	const context = {
+		subSchemas: {
+			shopify: remoteSchema,
+		},
+	}
+	return {
+		schema: merged,
+		context,
+	}
 }
 
 export default buildSchema

@@ -22,3 +22,5 @@ export type Collection = {
 	image: Image,
 	__typename: string,
 }
+
+export type ShopifyItem = Product | Collection

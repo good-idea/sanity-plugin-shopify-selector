@@ -2,16 +2,34 @@
 import sanityClient from '@sanity/client'
 // import Redis from 'ioredis'
 import { SANITY_PROJECT_ID, SANITY_DATASET } from '../config'
-import type { Product } from '../types'
+import type { Product, Collection } from '../types'
 import localCache from './cache'
 
 const dummyCache = {
-	get: () => false,
-	set: () => {},
+	set: () => undefined,
+	get: () => undefined,
+}
+
+type Cache = {
+	set: (string, string) => ?string,
+	get: string => void,
+}
+
+type Config = {
+	projectId: string,
+	dataset: string,
+	useCdn: boolean,
+	cache: Cache,
 }
 
 class SanityClient {
-	constructor({ projectId, dataset, useCdn, cache }) {
+	projectId: string
+
+	cache: Cache
+
+	client: typeof sanityClient
+
+	constructor({ projectId, dataset, useCdn, cache }: Config) {
 		this.client = sanityClient({
 			projectId,
 			dataset,
@@ -26,24 +44,26 @@ class SanityClient {
 	getByType = (_type: string) => async (
 		itemId: string,
 		fields?: Array<string>,
-	): Product => {
+	): Promise<Product | Collection | null> => {
 		const cacheId = `${this.projectId}-${itemId}`
 		const cached = this.cache.get(cacheId)
 		if (cached) return JSON.parse(cached)
 		const queryFields = fields ? `{${fields.join(' ')}}` : ''
 		const query = `*[_type == $_type && shopifyItem.itemId == $itemId]${queryFields}[0]`
 		const result = await this.client.fetch(query, { _type, itemId })
+		if (!result) return null
 		this.cache.set(cacheId, JSON.stringify(result))
 		return result
 	}
 
-	getById = async (id: string, fields) => {
+	getById = async (id: string, fields?: Array<string>) => {
 		const cacheId = `${this.projectId}-${id}`
 		const cached = this.cache.get(cacheId)
 		if (cached) return JSON.parse(cached)
 		const queryFields = fields ? `{${fields.join(' ')}}` : ''
 		const query = `*[_id == $id]${queryFields}[0]`
 		const result = await this.client.fetch(query, { id })
+		if (!result) return null
 		this.cache.set(cacheId, JSON.stringify(result))
 		return result
 	}
@@ -51,6 +71,18 @@ class SanityClient {
 	getProduct = this.getByType('product')
 
 	getCollection = this.getByType('collection')
+
+	getPage = async (slug: string, fields?: Array<string>) => {
+		const cacheId = `${this.projectId}-page-${slug}`
+		const cached = this.cache.get(cacheId)
+		if (cached) return JSON.parse(cached)
+		const queryFields = fields ? `{${fields.join(' ')}}` : ''
+		const query = `*[_type == "page" && slug == "$slug"]${queryFields}[0]`
+		const result = await this.client.fetch(query, { slug })
+		if (!result) return null
+		this.cache.set(cacheId, JSON.stringify(result))
+		return result
+	}
 }
 
 const client = new SanityClient({

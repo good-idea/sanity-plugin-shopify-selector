@@ -8,8 +8,8 @@ const debug = require('debug')('server')
 const port = PORT || 3000
 
 const runServer = async () => {
-	const schema = await buildSchema()
-	const server = new GraphQLServer({ schema })
+	const { context, schema } = await buildSchema()
+	const server = new GraphQLServer({ schema, context })
 
 	// server.express.use(getCurrentViewer)
 	server.start({ port }, () => {

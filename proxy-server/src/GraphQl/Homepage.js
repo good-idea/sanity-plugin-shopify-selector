@@ -18,7 +18,6 @@ export const homepageResolvers = {
 	Query: {
 		homepage: async () => {
 			const homepage = await client.getById('homepage')
-			console.log(homepage.content)
 			return homepage
 		},
 	},
