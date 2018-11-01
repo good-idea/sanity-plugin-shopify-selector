@@ -8,17 +8,19 @@ type Image = {
 }
 
 export type Product = {
-	id: string,
+	itemId: string,
 	title: string,
+	handle: string,
 	description: string,
 	images: Array<Image>,
-	type: 'Product',
+	itemType: 'Product',
 }
 
 export type Collection = {
-	id: string,
+	itemId: string,
 	title: string,
+	handle: string,
 	description: string,
 	image: Image,
-	type: 'Collection',
+	itemType: 'Collection',
 }

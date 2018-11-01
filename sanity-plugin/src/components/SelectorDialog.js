@@ -117,14 +117,12 @@ const collectionsFragment = /* GraphQL */ `
 `
 
 export default ({ options, ...props }: BaseProps) => {
-	console.log(options)
 	const query = `{
 		shop {
 			${options.collections ? collectionsFragment : ''}
 			${options.products ? productsFragment : ''}
 		}
 	}`
-	console.log(query)
 	return (
 		<Fetcher query={query}>
 			{({ data }) => <ShopifySelector data={data} {...props} />}

@@ -68,7 +68,6 @@ const CardInner = ({ item }: Props) => {
 			: images && images.length
 				? images[0]
 				: undefined
-	console.log(sourceImage, itemType, item)
 	const src = sourceImage ? sourceImage.transformedSrc : undefined
 	const subtitle = itemType
 	return (

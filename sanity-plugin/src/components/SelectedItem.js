@@ -23,6 +23,7 @@ const itemQuery = (id: string) => /* GraphQL */ `
 			itemId: id
 			title
 			description
+			handle
 			image {
 				id
 				altText
@@ -36,6 +37,7 @@ const itemQuery = (id: string) => /* GraphQL */ `
 			itemId: id
 			title
 			description
+			handle
 			images(first: 1) {
 				edges {
 					node {
@@ -52,11 +54,8 @@ const itemQuery = (id: string) => /* GraphQL */ `
 }
 `
 
-export default (props: BaseProps) => {
-	console.log(props)
-	return (
-		<Fetcher query={itemQuery(props.value.itemId)}>
-			{({ data }) => <SelectedItem item={data.node} />}
-		</Fetcher>
-	)
-}
+export default (props: BaseProps) => (
+	<Fetcher query={itemQuery(props.value.itemId)}>
+		{({ data }) => <SelectedItem item={data.node} />}
+	</Fetcher>
+)
