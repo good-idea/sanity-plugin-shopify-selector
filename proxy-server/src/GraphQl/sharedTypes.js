@@ -48,6 +48,8 @@ export const sharedTypeDefs = /* GraphQL */ `
 		_key: String!
 		_type: String!
 		_ref: String!
+		altText: String!
+		id: String!
 		asset: SanityAsset!
 		url: String!
 		metadata: ImageMetadata!
@@ -65,6 +67,8 @@ export const sharedTypeDefs = /* GraphQL */ `
 		_key: String!
 		children: [TextBlockChild]!
 		markDefs: [MarkDef!]!
+		level: Int
+		listItem: String
 		style: String!
 	}
 
@@ -77,6 +81,7 @@ export const sharedTypeDefs = /* GraphQL */ `
 
 	type MarkDef {
 		_type: String!
+		_key: String!
 		href: String!
 	}
 
@@ -87,6 +92,7 @@ export const sharedTypeDefs = /* GraphQL */ `
 		_type: String!
 		image: SanityImage
 		label: String
+		caption: String
 		link: LinkedItem!
 	}
 

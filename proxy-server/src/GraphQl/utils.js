@@ -1,4 +1,5 @@
 // @flow
+import * as R from 'ramda'
 import client from '../services/sanity'
 
 const getCustomField = (method: 'getCollection' | 'getProduct') => (
@@ -15,7 +16,8 @@ export const getProductField = getCustomField('getProduct')
 export const getRefField = (field: string) => async parent => {
 	const fetched = await client.getById(parent._ref)
 	if (!fetched) return parent[field]
-	return fetched[field] || parent[field]
+	const fieldPath = field.split('.')
+	return R.path(fieldPath, fetched) || R.path(fieldPath, parent)
 }
 
 export const getAssetField = (field: string) => async parent => {
