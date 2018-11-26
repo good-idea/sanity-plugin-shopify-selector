@@ -86,9 +86,9 @@ class SanityClient {
 }
 
 const client = new SanityClient({
-	projectId: SANITY_PROJECT_ID,
-	dataset: SANITY_DATASET,
-	useCdn: false,
+	projectId: SANITY_PROJECT_ID || '',
+	dataset: SANITY_DATASET || '',
+	useCdn: process.env.NODE_ENV !== 'development',
 	cache: localCache,
 })
 

@@ -93,7 +93,7 @@ export const sharedTypeDefs = /* GraphQL */ `
 		image: SanityImage
 		label: String
 		caption: String
-		link: LinkedItem!
+		link: LinkedItem
 	}
 
 	type SEOSettings {

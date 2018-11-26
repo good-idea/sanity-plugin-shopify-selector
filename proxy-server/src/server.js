@@ -5,21 +5,17 @@ import { PORT } from './config'
 
 const debug = require('debug')('server')
 
-const port = PORT || 3000
-
-const formatError = error => {
-	console.log(error)
-	throw new Error('!')
-}
-
-const runServer = async () => {
+const runServer = async (port: number = 3000) => {
 	const { context, schema } = await buildSchema()
-	const server = new GraphQLServer({ schema, context, formatError })
+	const server = new GraphQLServer({ schema, context })
 
-	// server.express.use(getCurrentViewer)
 	server.start({ port }, () => {
 		debug(`Server running on port ${port}`)
 	})
 }
 
-runServer()
+const run = () => {
+	runServer(parseInt(PORT, 10) || 3000)
+}
+
+export default run

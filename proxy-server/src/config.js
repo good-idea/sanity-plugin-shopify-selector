@@ -1,6 +1,19 @@
 // @flow
 
-const { resolve } = require('path')
-const result = require('dotenv').config({ path: resolve(__dirname, '.env') })
+const {
+	PORT,
+	STOREFRONT_ACCESS_TOKEN,
+	SHOP_NAME,
+	SANITY_PROJECT_ID,
+	SANITY_DATASET,
+} = process.env
 
-module.exports = result.parsed
+const config = {
+	PORT,
+	STOREFRONT_ACCESS_TOKEN,
+	SHOP_NAME,
+	SANITY_PROJECT_ID,
+	SANITY_DATASET,
+}
+
+module.exports = config

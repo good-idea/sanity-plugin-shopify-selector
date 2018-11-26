@@ -61,6 +61,7 @@ export const sharedResolvers = {
 				context,
 				info,
 			})
+			if (!shopifyLink) return null
 			return {
 				...parentLink,
 				...shopifyLink,
