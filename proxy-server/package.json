@@ -1,14 +1,18 @@
 {
-	"name": "shopify-sanity-proxy-server",
-	"version": "0.0.0-development",
+	"name": "@good-idea/shopify-sanity-proxy-server",
+	"version": "0.0.1",
 	"description": "Shopify storefront API proxy stitched with Sanity",
-	"main": "index.js",
+	"main": "./dist/server.js",
 	"repository": "git@github.com:good-idea/sane-shopify",
 	"author": "Joseph Thomas <joseph@good-idea.studio>",
 	"license": "MIT",
 	"private": false,
+	"files": [
+		"dist"
+	],
 	"scripts": {
-		"dev": "cd .. && cross-env DEBUG=server cross-env NODE_ENV=development nodemon --watch ./proxy-server/src --ignore ./proxy-server/src/cached ./proxy-server/src/server.js --exec babel-node"
+		"dev": "cd .. && cross-env DEBUG=server cross-env NODE_ENV=development nodemon --watch ./proxy-server/src --ignore ./proxy-server/src/cached ./proxy-server/src/server.js --exec babel-node",
+		"build": "babel ./src --out-dir ./dist"
 	},
 	"dependencies": {
 		"@sanity/client": "^0.135.0",

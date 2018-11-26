@@ -38,3 +38,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 [ignore]
 
 [include]
+../node_modules/

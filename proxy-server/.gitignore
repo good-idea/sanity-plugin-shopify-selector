@@ -1,2 +1,12 @@
 src/cached/*
 !src/cached/.gitkeep
+dist
+
+.DS_Store
+lib
+node_modules
+flow-typed
+
+!**/.gitkeep
+
+.vscode
