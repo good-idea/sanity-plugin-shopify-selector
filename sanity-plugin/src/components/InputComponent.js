@@ -85,7 +85,7 @@ class ShopifyInput extends React.Component<Props, State> {
 	setValue = item => {
 		const { image, images, itemId, title, description, handle, itemType } = item
 		const sourceImage = images && images.length ? images[0] : image
-		const previewImage = sourceImage.transformedSrc
+		const previewImage = sourceImage ? sourceImage.transformedSrc : null
 		this.props.onChange(
 			PatchEvent.from(
 				setIfMissing({ _type: 'shopifyItem' }),
