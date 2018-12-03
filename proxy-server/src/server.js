@@ -15,7 +15,9 @@ const runServer = async (port: number = 3000) => {
 }
 
 const run = () => {
-	runServer(parseInt(PORT, 10) || 3000)
+	const port = parseInt(PORT, 10) || 3000
+	runServer(port)
+	debug(`[${process.env.NODE_ENV}] Server running on port ${port}`)
 }
 
 export default run

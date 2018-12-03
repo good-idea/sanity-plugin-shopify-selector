@@ -2,7 +2,9 @@
 
 const collectionSchema = /* GraphQL */ `
 	extend type Collection {
-		dummy: String
+		keyColor: Color
+		backgroundColor: Color
+		backgroundImage: SanityImage
 	}
 `
 

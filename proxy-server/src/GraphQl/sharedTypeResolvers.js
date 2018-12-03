@@ -22,11 +22,11 @@ export const sharedResolvers = {
 		},
 	},
 	SanityImage: {
-		_ref: parent => parent.asset._ref,
+		_ref: parent => parent.asset && parent.asset._ref,
 		_type: () => 'image',
 		// create a fake 'key', this helps with prop types on the frontend
-		_key: parent => parent.asset._ref,
-		id: parent => parent.asset._ref,
+		_key: parent => parent.asset && parent.asset._ref,
+		id: parent => parent.asset && parent.asset._ref,
 		altText: async parent => {
 			const altText = await getAssetField('altText')(parent)
 			return altText || ''

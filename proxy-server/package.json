@@ -12,7 +12,8 @@
 	],
 	"scripts": {
 		"dev": "cd .. && cross-env DEBUG=server cross-env NODE_ENV=development nodemon --watch ./proxy-server/src --ignore ./proxy-server/src/cached ./proxy-server/src/server.js --exec babel-node",
-		"build": "babel ./src --out-dir ./dist"
+		"build": "babel ./src --out-dir ./dist",
+		"build:watch": "nodemon --exec 'yarn build' --watch ./src"
 	},
 	"dependencies": {
 		"@sanity/client": "^0.135.0",

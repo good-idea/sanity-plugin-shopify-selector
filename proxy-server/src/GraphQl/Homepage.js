@@ -9,7 +9,7 @@ export const homepageSchema = /* GraphQL */ `
 	type Homepage {
 		title: String
 		content: [ContentBlock]
-		banner: SanityImage
+		banner: [SanityImage]
 		seo: SEOSettings
 	}
 `

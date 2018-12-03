@@ -4,6 +4,7 @@ import sanityClient from '@sanity/client'
 import { SANITY_PROJECT_ID, SANITY_DATASET } from '../config'
 import type { Product, Collection } from '../types'
 import localCache from './cache'
+const debug = require('debug')('server')
 
 const dummyCache = {
 	set: () => undefined,
@@ -84,6 +85,8 @@ class SanityClient {
 		return result
 	}
 }
+
+debug(`[${process.env.NODE_ENV}] Sanity: using dataset ${SANITY_DATASET}`)
 
 const client = new SanityClient({
 	projectId: SANITY_PROJECT_ID || '',
