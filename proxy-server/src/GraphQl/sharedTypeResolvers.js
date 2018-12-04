@@ -2,6 +2,27 @@
 // import client from '../services/sanity'
 import { getAssetField } from './utils'
 
+export const getLink = async (parent, args, context, info) => {
+	const parentLink = parent.link[0]
+
+	if (parentLink._type !== 'shopifyItem') return parentLink
+	const shopifyLink = await info.mergeInfo.delegateToSchema({
+		schema: context.subSchemas.shopify,
+		operation: 'query',
+		fieldName: 'node',
+		args: {
+			id: parentLink.itemId,
+		},
+		context,
+		info,
+	})
+	if (!shopifyLink) return null
+	return {
+		...parentLink,
+		...shopifyLink,
+	}
+}
+
 export const sharedResolvers = {
 	ContentBlock: {
 		__resolveType: obj => {
@@ -48,24 +69,6 @@ export const sharedResolvers = {
 		},
 	},
 	PageLink: {
-		link: async (parent, args, context, info) => {
-			const parentLink = parent.link[0]
-			if (parentLink._type !== 'shopifyItem') return parentLink
-			const shopifyLink = await info.mergeInfo.delegateToSchema({
-				schema: context.subSchemas.shopify,
-				operation: 'query',
-				fieldName: 'node',
-				args: {
-					id: parentLink.itemId,
-				},
-				context,
-				info,
-			})
-			if (!shopifyLink) return null
-			return {
-				...parentLink,
-				...shopifyLink,
-			}
-		},
+		link: getLink,
 	},
 }

@@ -1,5 +1,6 @@
 // @flow
 import client from '../services/sanity'
+import { getLink } from './sharedTypeResolvers'
 
 export const settingsSchema = /* GraphQL */ `
 	extend type Query {
@@ -10,26 +11,26 @@ export const settingsSchema = /* GraphQL */ `
 		backgroundColor: Color
 		link: LinkedItem
 		enabled: Boolean!
-		text: TextBlock
+		text: [TextBlock]
 	}
 
 	type CheckoutSettings {
-		text: TextBlock
+		text: [TextBlock]
 	}
 
 	type ProductSettings {
-		text: TextBlock
+		text: [TextBlock]
 	}
 
 	type MailerSettings {
 		buttonLabel: String
-		footerText: TextBlock
-		popupText: TextBlock
+		footerText: [TextBlock]
+		popupText: [TextBlock]
 	}
 
 	type FooterNavigationSettings {
 		links: [LinkedItem]
-		text: TextBlock
+		text: [TextBlock]
 	}
 
 	type HeaderNavigationSettings {
@@ -57,8 +58,10 @@ export const settingsResolvers = {
 	Query: {
 		siteSettings: async () => {
 			const siteSettings = await client.getById('site-settings')
-			console.log(siteSettings)
 			return siteSettings
 		},
+	},
+	AnnouncementSettings: {
+		link: getLink,
 	},
 }
