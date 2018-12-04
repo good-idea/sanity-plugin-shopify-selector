@@ -4,7 +4,6 @@ module.exports = {
 	parser: 'babel-eslint',
 	extends: ['airbnb', 'prettier', 'plugin:flowtype/recommended'],
 	rules: {
-		'import/no-cycle': [2, { maxDepth: 1 }],
 		'no-underscore-dangle': 0,
 		'no-nested-ternary': 0,
 		'jsx-a11y/anchor-is-valid': 0,

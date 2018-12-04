@@ -13,6 +13,13 @@ const getCustomField = (method: 'getCollection' | 'getProduct') => (
 export const getCollectionField = getCustomField('getCollection')
 export const getProductField = getCustomField('getProduct')
 
+export const getDocumentField = (field: string) => async parent => {
+	const fetched = await client.getById(parent._id)
+	if (!fetched) return parent[field]
+	const fieldPath = field.split('.')
+	return R.path(fieldPath, fetched) || R.path(fieldPath, parent)
+}
+
 export const getRefField = (field: string) => async parent => {
 	const fetched = await client.getById(parent._ref)
 	if (!fetched) return parent[field]

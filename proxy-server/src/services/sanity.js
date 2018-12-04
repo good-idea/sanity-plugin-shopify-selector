@@ -4,6 +4,7 @@ import sanityClient from '@sanity/client'
 import { SANITY_PROJECT_ID, SANITY_DATASET } from '../config'
 import type { Product, Collection } from '../types'
 import localCache from './cache'
+
 const debug = require('debug')('server')
 
 const dummyCache = {
@@ -78,7 +79,7 @@ class SanityClient {
 		const cached = this.cache.get(cacheId)
 		if (cached) return JSON.parse(cached)
 		const queryFields = fields ? `{${fields.join(' ')}}` : ''
-		const query = `*[_type == "page" && slug == "$slug"]${queryFields}[0]`
+		const query = `*[_type == "page" && slug.current == $slug]${queryFields}[0]`
 		const result = await this.client.fetch(query, { slug })
 		if (!result) return null
 		this.cache.set(cacheId, JSON.stringify(result))
