@@ -18,23 +18,43 @@ const SelectedWrapper = styled.div`
 	align-items: center;
 `
 
+const Marker = styled.h6`
+	${({ level }) => `
+		color: ${level === 'error' ? 'red' : 'auto'};
+		margin: 0.2em 0; 
+		font-weight: normal;
+	`};
+`
+
 /**
  * Shopify
  */
+
+type ShopifyItemValue = {
+	title: string,
+	description?: string,
+	handle: string,
+	itemType: string,
+	previewImage?: string,
+}
+
+type FieldMarker = {
+	level: string,
+	type: string,
+	item: {
+		message: string,
+		name: string,
+	},
+}
 
 type Props = {
 	type: {
 		title: string,
 		// options: Array<'product' | 'collection'>,
 	},
-	value?: {
-		title: string,
-		description: string,
-		handle: string,
-		itemType: string,
-		previewImage: string,
-	},
+	value?: string | ShopifyItemValue,
 	onChange: (value: string) => void,
+	markers: Array<FieldMarker>,
 }
 
 type State = {
@@ -123,25 +143,30 @@ class ShopifyInput extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { value, type } = this.props
+		console.log()
+		const { value, type, markers } = this.props
 		const { open, caughtError } = this.state
 		const suppliedOptions = type.options || {}
 		const options = {
 			...defaultOptions,
 			...suppliedOptions,
 		}
-		if (caughtError) {
-			return <p>Sorry, i broke it</p>
-		}
+		console.log(this.props)
+
 		return (
 			<div>
+				<div>Linked Shopify Item</div>
 				{!value || value === '' ? (
 					<Button type="button" onClick={this.showSelector}>
 						Select an Item
 					</Button>
 				) : (
 					<SelectedWrapper>
-						<SelectedItem value={value} />
+						{caughtError ? (
+							<p>Sorry, something broke</p>
+						) : (
+							<SelectedItem value={value} />
+						)}
 						<Button type="button" onClick={this.clearValue}>
 							<FaTrashAlt />
 						</Button>
@@ -161,6 +186,8 @@ class ShopifyInput extends React.Component<Props, State> {
 					value={value}
 					onChange={this.handleChange}
 				/>
+				{markers &&
+					markers.map(m => <Marker level={m.level}>{m.item.message}</Marker>)}
 			</div>
 		)
 	}

@@ -53,29 +53,35 @@ const Subtitle = styled.h5`
 	font-weight: normal;
 	color: gray;
 	margin: 0;
-	${noWrap};
 `
+/* ${noWrap}; */
+
+type MissingItem = {
+	title: string,
+	subtitle: string,
+	image: null,
+}
 
 type Props = {
-	item: Product | Collection,
+	item: Product | Collection | MissingItem,
 }
 
 const CardInner = ({ item }: Props) => {
-	const { title, itemType, image, images } = item
+	const { title, itemType, image, images, subtitle } = item
 	const sourceImage =
-		itemType.toLowerCase() === 'collection'
+		(image || images) && itemType.toLowerCase() === 'collection'
 			? image
 			: images && images.length
 				? images[0]
 				: undefined
 	const src = sourceImage ? sourceImage.transformedSrc : undefined
-	const subtitle = itemType
+	const sub = subtitle || itemType
 	return (
 		<React.Fragment>
 			<CardImage src={src} />
 			<TextWrapper>
 				<Title>{title}</Title>
-				{subtitle ? <Subtitle>{subtitle}</Subtitle> : null}
+				{sub ? <Subtitle>{sub}</Subtitle> : null}
 			</TextWrapper>
 		</React.Fragment>
 	)

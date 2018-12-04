@@ -10,7 +10,14 @@ import type { Product, Collection } from '../types'
 
 type Props = Product | Collection
 
-const SelectedItem = ({ item }: Props) => <Card item={item} />
+const missingItem = {
+	title: '⚠️ Missing',
+	subtitle:
+		'This item cannot be found within Shopify. Remove the entry here and link thi spage to an existing Shopify item.',
+	image: null,
+}
+
+const SelectedItem = ({ item }: Props) => <Card item={item || missingItem} />
 
 /**
  * With Fetched Data
