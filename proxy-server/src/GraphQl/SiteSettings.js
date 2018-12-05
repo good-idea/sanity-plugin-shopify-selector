@@ -11,26 +11,26 @@ export const settingsSchema = /* GraphQL */ `
 		backgroundColor: Color
 		link: LinkedItem
 		enabled: Boolean!
-		text: [TextBlock]
+		text: [TextNode]
 	}
 
 	type CheckoutSettings {
-		text: [TextBlock]
+		text: [TextNode]
 	}
 
 	type ProductSettings {
-		text: [TextBlock]
+		text: [TextNode]
 	}
 
 	type MailerSettings {
 		buttonLabel: String
-		footerText: [TextBlock]
-		popupText: [TextBlock]
+		footerText: [TextNode]
+		popupText: [TextNode]
 	}
 
 	type FooterNavigationSettings {
 		links: [LinkedItem]
-		text: [TextBlock]
+		text: [TextNode]
 	}
 
 	type HeaderNavigationSettings {

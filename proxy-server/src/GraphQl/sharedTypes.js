@@ -44,7 +44,7 @@ export const sharedTypeDefs = /* GraphQL */ `
 		palette: Palette
 	}
 
-	type SanityImage implements ContentBlock {
+	type SanityImage implements ContentBlock & TextNode {
 		_key: String!
 		_type: String!
 		_ref: String!
@@ -59,17 +59,22 @@ export const sharedTypeDefs = /* GraphQL */ `
 	type RichText implements ContentBlock {
 		_key: String!
 		_type: String!
-		blocks: [TextBlock!]!
+		blocks: [TextNode!]!
 	}
 
-	type TextBlock {
+	interface TextNode {
 		_type: String!
 		_key: String!
-		children: [TextBlockChild]!
-		markDefs: [MarkDef!]!
+	}
+
+	type TextBlock implements TextNode {
+		_type: String!
+		_key: String!
+		children: [TextBlockChild]
+		markDefs: [MarkDef!]
 		level: Int
 		listItem: String
-		style: String!
+		style: String
 	}
 
 	type TextBlockChild {

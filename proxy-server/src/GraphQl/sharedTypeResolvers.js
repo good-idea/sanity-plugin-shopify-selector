@@ -24,6 +24,18 @@ export const getLink = async (parent, args, context, info) => {
 }
 
 export const sharedResolvers = {
+	TextNode: {
+		__resolveType: obj => {
+			switch (obj._type) {
+				case 'block':
+					return 'TextBlock'
+				case 'image':
+					return 'SanityImage'
+				default:
+					return null
+			}
+		},
+	},
 	ContentBlock: {
 		__resolveType: obj => {
 			switch (obj._type) {

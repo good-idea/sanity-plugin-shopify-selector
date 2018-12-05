@@ -13,15 +13,10 @@ const getCustomField = (method: 'getCollection' | 'getProduct') => (
 export const getCollectionField = getCustomField('getCollection')
 export const getProductField = getCustomField('getProduct')
 
-export const getDocumentField = (field: string) => async parent => {
-	const fetched = await client.getById(parent._id)
-	if (!fetched) return parent[field]
-	const fieldPath = field.split('.')
-	return R.path(fieldPath, fetched) || R.path(fieldPath, parent)
-}
-
 export const getRefField = (field: string) => async parent => {
-	const fetched = await client.getById(parent._ref)
+	const id = parent._id || parent._ref
+	if (!id) throw new Error('This item does not have a ref or id')
+	const fetched = await client.getById(id)
 	if (!fetched) return parent[field]
 	const fieldPath = field.split('.')
 	return R.path(fieldPath, fetched) || R.path(fieldPath, parent)

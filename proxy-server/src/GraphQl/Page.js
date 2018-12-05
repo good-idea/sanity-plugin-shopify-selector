@@ -1,6 +1,6 @@
 // @flow
 import client from '../services/sanity'
-import { getDocumentField } from './utils'
+import { getRefField } from './utils'
 
 export const pageSchema = /* GraphQL */ `
 	input GetPageInput {
@@ -14,8 +14,8 @@ export const pageSchema = /* GraphQL */ `
 	type Page {
 		title: String!
 		slug: String!
-		content: [ContentBlock]
-		banner: SanityImage
+		content: [TextNode]
+		banner: [SanityImage]
 		seo: SEOSettings
 	}
 `
@@ -27,10 +27,10 @@ export const pageResolvers = {
 		},
 	},
 	Page: {
-		title: getDocumentField('title'),
-		slug: getDocumentField('slug.current'),
-		content: getDocumentField('content'),
-		banner: getDocumentField('banner'),
-		seo: getDocumentField('seo'),
+		title: getRefField('title'),
+		slug: getRefField('slug.current'),
+		content: getRefField('content'),
+		banner: getRefField('banner'),
+		seo: getRefField('seo'),
 	},
 }
