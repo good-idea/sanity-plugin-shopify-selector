@@ -1,6 +1,6 @@
 {
 	"name": "@good-idea/shopify-sanity-proxy-server",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Shopify storefront API proxy stitched with Sanity",
 	"main": "./dist/server.js",
 	"repository": "git@github.com:good-idea/sane-shopify",
