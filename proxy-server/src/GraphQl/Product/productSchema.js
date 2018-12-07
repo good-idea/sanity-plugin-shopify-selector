@@ -2,7 +2,7 @@
 
 const productSchema = /* GraphQL */ `
 	extend type Product {
-		something: String
+		related: [LinkedItem]
 	}
 `
 

@@ -8,10 +8,12 @@ const getCustomField = (method: 'getCollection' | 'getProduct') => (
 	const fetchedItem = await client[method](parent.itemId || parent.id)
 	if (!fetchedItem) return parent[field]
 	const item = fetchedItem[field] || parent[field]
-	// if (field === 'backgroundImage') return null
-	// if (!item._type) return undefined
+	console.log(field)
+
 	if (!item) return undefined
 	if ((item._type === 'image' || item._type === 'imageWithAltText') && !item.asset) return null
+	console.log(item)
+	
 	return item
 }
 

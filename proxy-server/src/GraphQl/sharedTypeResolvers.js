@@ -78,6 +78,8 @@ export const sharedResolvers = {
 					return obj.itemType
 				case 'page':
 					return 'Page'
+				case 'pageLink':
+					return 'PageLink'
 				default:
 					return null
 			}
