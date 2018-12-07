@@ -7,7 +7,12 @@ const getCustomField = (method: 'getCollection' | 'getProduct') => (
 ) => async (parent: any): any => {
 	const fetchedItem = await client[method](parent.itemId || parent.id)
 	if (!fetchedItem) return parent[field]
-	return fetchedItem[field] || parent[field]
+	const item = fetchedItem[field] || parent[field]
+	// if (field === 'backgroundImage') return null
+	// if (!item._type) return undefined
+	if (!item) return undefined
+	if ((item._type === 'image' || item._type === 'imageWithAltText') && !item.asset) return null
+	return item
 }
 
 export const getCollectionField = getCustomField('getCollection')
