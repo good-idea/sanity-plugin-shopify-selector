@@ -59,8 +59,7 @@ export const sharedResolvers = {
 		_type: () => 'image',
 		// create a fake 'key', this helps with prop types on the frontend
 		_key: parent => {
-			// console.log(parent)
-			return parent._key || parent.asset && parent.asset._ref
+			return parent._key || (parent.asset && parent.asset._ref)
 		},
 		id: parent => parent.asset && parent.asset._ref,
 		altText: async parent => {
