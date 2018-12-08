@@ -28,8 +28,10 @@ const Inner = styled.div`
 	background-color: white;
 	width: calc(100% - 50px);
 	max-width: 700px;
+	max-height: 80vh;
+	overflow-y: scroll;
 	position: relative;
-	border-radius: 10px;
+	border-radius: 5px;
 	padding: 15px;
 	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
 	z-index: 2;
